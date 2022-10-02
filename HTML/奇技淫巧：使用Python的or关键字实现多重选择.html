@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在Python开发过程中，我们难免会遇到多重条件判断的情况的情况，此时除了用很多的<code>if...elif...else</code>以外，还可以巧用<code>or</code>关键字实现。</p> <p>例如，我们要获取天气信息，现在有三个api接口。</p> <p>其中<code>api_1()</code>的数据又详细又好，但是接口不稳定，可能随时会掉线。</p> <p><code>api_2()</code>返回的结果比<code>api_1()</code>稍微差一点，但是稳定性还不错。</p> <p><code>api_3()</code>接口返回的是兜底数据，就是在前两个接口都故障的情况下才会使用。</p> <p>如果前两个接口正常工作时返回字典，故障时他们都会返回<code>None</code>。</p> <p>现在我们要获取天气信息，你可能会这样写代码：</p> <p>代码这样写，功能自然是没有问题，但是非常难看。</p> <p>实际上，代码可以写为：</p> <p>只需要1行代码就能实现自动选择。如果<code>api_1()</code>返回的是一个非空字典，那么由于<code>短路效应</code>，后面的两个函数都不会运行。当<code>api_1</code>返回None时，<code>api_2()</code>才会运行。并且如果<code>api_2()</code>返回非空字典，那么<code>api_3()</code>依然不会运行。</p> <p>我们现在在Jupyter里面测试一下，首先看看如果<code>api_1()</code>直接返回非空字典的情况，如下图所示。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-04-11-23-06-44.png"/></p> <p>可以看到，在<code>api_2()</code>和<code>api_3()</code>里面的两行<code>print</code>语句都没有执行。</p> <p>接下来我们看看<code>api_1()</code>故障时候的情况。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-04-11-23-07-44.png"/></p> <p>此时先运行<code>api_1()</code>返回None，再运行<code>api_2()</code>返回非空字典。符合预期。</p> <p>当前两个函数都返回None的时候，第三个函数才会运行，如下图所示。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-04-11-23-09-07.png"/></p> <p>除了做多重条件判断外，还可以用来自己和自己取或操作，实现重试。</p> <p>例如<code>api_1()</code>可能成功也可能失败，所以需要尝试运行3次，那么代码可以这样写：</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

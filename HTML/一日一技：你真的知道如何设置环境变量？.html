@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>很多人都知道环境变量，很多人也在使用环境变量。但是很多人一说到在 Linux、macOS 中使用环境变量，第一个想到的就是<code>export XXX=yyy</code>这种形式的环境变量。但实际上，在 Linux 和 macOS 中，定义环境变量有三种方式，他们的效果和作用范围是不相同的。</p> <p>以 macOS 为例，来说明这三种环境变量有什么不同。我们通过下面这个 Python 程序来验证设置结果：</p> <p>如果你使用 ZSH，那么你就会知道，ZSH 有一个配置文件<code>~/.zshrc</code>，打开以后，它的内容如下：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-03-04-20-19-58.png"/></p> <p>在这里添加一行代码：<code>export WHO_AM_I=kingname</code>，就能设置一个全局的环境变量。这个环境变量会始终生效。即使你现在把电脑关了再打开，或者任意新开一个终端窗口，这个环境变量始终是有效的。如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-03-04-20-23-27.png"/></p> <p>如果你电脑上没有 ZSH 的话，你也可以修改系统默认的<code>~/.bashrc</code>文件</p> <p>除了修改配置文件外，你也可以直接执行命令来设置环境变量，这也是最众所周知的方式。我们先把<code>~/.zshrc</code>里面的环境变量删了，来测试一下：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-03-04-20-27-26.png"/></p> <p>可以看到，当我们执行<code>export WHO_AM_I=kingname</code>时，这个环境变量只对<strong>当前终端窗口</strong>有用。你重新开一个新的终端窗口，或者关闭当前窗口再打开，它都会失效。</p> <p>除此之外，我们还可以设置让环境变量只对当前命令有效，就是把定义环境变量的代码直接放在执行的命令之前。并且不加 <code>export</code>。例如，我们要执行命令<code>python3 test.py</code>，那么我们就这样：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-03-04-20-30-36.png"/></p> <p>可以看到，只有在命令前面带上了定义语句的这一行才能正确获得环境变量。</p> <p>这种方式特别在使用 Crontab 的时候有用。如果你经常使用 Crontab，那么你一定知道，Crontab 里面是不会认你的全局环境变量的。无论你是在<code>.zshrc</code>文件还是<code>.bashrc</code>中定义的环境变量，当你通过 Crontab 来执行的时候，程序都读不到环境变量。这个时候，就可以通过这种方式让程序运行的时候现场定义环境变量：</p> <p>这样一来，程序始终能够正确获得环境变量。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

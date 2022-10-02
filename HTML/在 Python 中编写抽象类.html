@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在极客时间某设计模式相关的课程中，某老师说 Python 不支持抽象类和接口。</p> <p>但实际上，Python 支持抽象类。</p> <p>Python 自带的<code>abc</code>模块用于实现抽象类相关的定义和操作。</p> <p>我们通过一个简单的例子来说明，如何在 Python 中实现抽象类：</p> <p>从<code>abc</code>模块导入<code>ABC</code>类，和<code>abstractmethod</code>抽象方法装饰器。基于<code>ABC</code>类可以实现一个抽象类。通过<code>@abstractmethod</code>装饰一个方法，让它成为一个抽象方法。抽象方法在子类中必需被实现。</p> <p>抽象类不能被实例化，所以我们实例化一下，可以看到这里报错了，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-26-19-43-11.png"/></p> <p>我们再看一下，如果继承抽象类，但是没有实现其中的某个抽象方法，也会导致报错。如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-26-19-47-41.png"/></p> <p>当我们把所有抽象方法都实现了以后，子类就能够正常初始化了，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-26-19-49-23.png"/></p> <p>抽象类<code>People</code>中的<code>dance</code>不是抽象方法，所以子类不需要覆盖。</p> <p>抽象类是软件开发中一个非常重要的概念，通过定义抽象类，我们可以约定子类必需实现的方法。当我们一个类有几十上百个方法时，用抽象方法来防止子类漏掉某些方法是非常方便的做法。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>我在多篇文章里面都说过，我非常喜欢使用Yaml格式来写配置文件。Yaml是一个对人非常友好的配置格式。</p> <p>有时候，我们在开发环境、测试环境和线上环境会有多套不同的配置文件，如何在不修改代码的情况下方便的切换配置文件呢？我以前的文章讲过一种方法，使用环境变量来指定配置文件名。今天我们来介绍一个更先进的工具，专门用来高效加载配置文件。这就是Facebook开源的Hydra。</p> <p>这个工具有多简单呢？我们先写两个配置文件，然后看看怎么读取它：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220420191201.png"/></p> <p>使用pip安装Hydra:</p> <p>接下来，我们写一段代码，来读取配置文件：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220420191749.png"/></p> <p>其中，装饰器<code>hydra.main</code>的参数<code>config_path</code>指定存放配置文件的文件夹，<code>config_name</code>用来指定配置文件的名字（去掉.yaml）。</p> <p>这样一来，我们可以通过环境变量指定要使用哪个配置文件。</p> <p>这样看起来似乎跟我以前讲的方法没什么区别啊。那么，高级的功能来了。例如现在我使用dev环境时，临时想修改一下Redis的Key怎么办呢？以前的方法，我就必须去修改Yaml文件，把Key改掉。但是，既然是临时修改，测试完了又要改回来，显然非常麻烦。</p> <p>使用Hydra，这个问题就不再是问题了。我们来看看直接在命令中覆盖数据的方法：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220420192315.png"/></p> <p>请看图中，我代码没有做任何修改，Yaml也没有做任何修改。只需要在启动命令的时候增加一个参数<code>redis.key=new_key</code>，那么程序读取到的就是新的值了。这对临时测试的时候非常有用。</p> <p>除了我上面介绍的这些，Hydra还可以实现自动补全，自动提示参数名，自动以多个不同的配置连续运行等等功能。大家可以在它的<a href="https://hydra.cc/docs/intro/" rel="noopener" target="_blank">官方文档</a>中看到使用方法。</p> <p>最后，我补充一个点。有同学在公众号粉丝群提问，Hydra为什么不能在调用函数的时候，传递额外的参数，例如下面这样写就会报错：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220420193112.png"/></p> <p>这是因为，Hydra的装饰对象应该是程序的<strong>入口函数</strong>。给入口函数传递参数是很奇怪的。如果你的入口函数要根据参数的不同值执行不同的逻辑，那么这个参数你完全可以放到配置文件中。而不是用函数参数来传入。</p> <p>所以，这里报错应该是功能而不是bug。本来就不应该在入口函数中添加额外的参数。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>如果大家在网上搜索<code>Python 正则表达式</code>，你将会看到大量的垃圾文章会这样写代码：</p> <p>这些文章的作者，可能是被其他语言的坏习惯影响了，也可能是被其他垃圾文章误导了，不假思索拿来就用。</p> <p><strong>在Python里面，真的不需要使用re.compile!</strong></p> <p>为了证明这一点，我们来看Python的源代码。</p> <p>在PyCharm里面输入:</p> <p>然后Windows用户按住键盘上的Ctrl键，鼠标左键点击<code>search</code>，Mac用户按住键盘上的Command键，鼠标左键点击<code>search</code>，PyCharm会自动跳转到Python的re模块。在这里，你会看到我们常用的正则表达式方法，无论是<code>findall</code>还是<code>search</code>还是<code>sub</code>还是<code>match</code>，全部都是这样写的：</p> <p>例如：</p> <p>如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-06-25-12-41-18.png"/></p> <p>然后我们再来看<code>compile</code>：</p> <p>如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-06-25-12-43-19.png"/></p> <p>看出问题来了吗？</p> <p>我们常用的正则表达式方法，都已经自带了<code>compile</code>了！</p> <p>根本没有必要多此一举先<code>re.compile</code>再调用正则表达式方法。</p> <p>此时，可能会有人反驳：</p> <p>如果我有一百万条字符串，使用某一个正则表达式去匹配，那么我可以这样写代码：</p> <p>这个时候，<code>re.compile</code>只执行了1次，而如果你像下面这样写代码：</p> <p>相当于你在底层对同一个正则表达式执行了100万次<code>re.compile</code>。</p> <p>Talk is cheap show me the code.</p> <p>我们来看源代码，正则表达式<code>re.compile</code>调用的是<code>_compile</code>，我们就去看<code>_compile</code>的源代码，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-06-25-12-49-36.png"/></p> <p>红框中的代码，说明了<code>_compile</code>自带缓存。它会自动储存最多512条由type(pattern) pattern flags)组成的Key，只要是同一个正则表达式，同一个flag，那么调用两次_compile时，第二次会直接读取缓存。</p> <p>综上所述，请你不要再手动调用<code>re.compile</code>了，这是从其他语言（对的，我说的就是Java）带过来的陋习。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

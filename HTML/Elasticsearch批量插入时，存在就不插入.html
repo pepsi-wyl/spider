@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>当我们使用 Elasticsearch-py 批量插入数据到 ES 的时候，我们常常使用它的 <code>helpers</code>模块里面的<code>bulk</code>函数。其使用方法如下：</p> <p>但这种方式有一个问题，它默认相当于<code>upsert</code>操作。如果<code>_id</code> 对应的文档已经在 ES 里面了，那么数据会被更新。如果<code>_id</code> 对应的文档不在 ES 中，那么就插入。</p> <p>如果我想实现，不存在就插入，存在就跳过怎么办？此时就需要在文档里面添加<code>_op_type</code>指定操作类型为<code>create</code>:</p> <p>此时，如果<code>_id</code> 对应的文档不在 ES 中，那么就会正常插入，如果<code>ES</code>里面已经有<code>_id</code>对应的数据了，那么就会报错。由于<code>bulk</code>一次性默认插入500条数据，假设其中有2条数据已经存在了，那么剩下的498条会被正常插入。然后程序报错退出，告诉你有两条写入失败，因为已经存在。</p> <p>如果你不想让程序报错终止，那么可以增加2个参数：</p> <p>其中<code>raise_on_exception=False</code>表示在插入数据失败时，不需要抛出异常。<code>raise_on_error=False</code>表示不抛出<code>BulkIndexError</code>。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

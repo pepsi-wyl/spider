@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p><code>GeneralNewsExtractor</code>以下简称<code>GNE</code>是一个新闻网页通用抽取器，能够在不指定任何抽取规则的情况下，把新闻网站的正文提取出来。</p> <p>我们来看一下它的基本使用方法。</p> <p>使用 pip 安装：</p> <p>当然你也可以使用<code>pipenv</code>安装：</p> <p>GNE 现在不会，将来也不会提供网页请求的功能，所以你需要自行想办法获取<code>经过渲染以后的</code>网页源代码。你可以使用<code>Selenium</code>或者<code>Pyppeteer</code>或者直接从浏览器上复制。</p> <p>这里演示如何直接从浏览器中复制网页的源代码：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-25-22-21-06.png"/></p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-25-22-22-12.png"/></p> <p>编写如下代码：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-25-22-41-02.png"/></p> <p>在最新更新的 v0.04版本中，开放了正文图片提取功能，与返回正文源代码功能。其中返回图片 URL 的功能在上面已经演示了，结果中的<code>images</code>字段就是正文中的图片。</p> <p>那么怎么返回正文源代码呢？只需要增加一个参数<code>with_body_html=True</code>即可：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-25-22-42-45.png"/></p> <p>返回结果中的<code>body_html</code>就是正文的 html 源代码。</p> <p>关于 GNE 的深入使用，可以访问GNE 的Github: <a href="https://github.com/kingname/GeneralNewsExtractor。" rel="noopener" target="_blank">https://github.com/kingname/GeneralNewsExtractor。</a></p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

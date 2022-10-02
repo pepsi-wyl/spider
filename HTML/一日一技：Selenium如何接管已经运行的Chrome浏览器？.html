@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在昨天的文章<a href="https://mp.weixin.qq.com/s/ZifW2YtB_G2hmf_Es0BAgw" rel="noopener" target="_blank">一日一技：爬虫模拟浏览器如何避免重复登录？</a>中，我讲到了如何使用Puppeteer接管已经运行的Chrome。今天我们来讲讲使用Selenium如何实现这个功能。</p> <p>在正式开始之前，先纠正昨天的一个错误。昨天我讲到，Windows电脑启动Chrome的远程调试模式用到的命令是：</p> <p>这个地方漏掉了一个参数。正确的命令应该是：</p> <p>好了，回到正题。现在无论你使用macOS还是Windows，首先按昨天的文章所说，启动Chrome开放9222端口。然后，在这个Chrome中，手动登录示例网站。</p> <p>接下来，编写下面这段代码：</p> <p>如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20211216183133.png"/></p> <p>由于使用Selenium的时候，始终操作的都是当前标签页，为了证明确实有效，所以我在示例代码里面，先把爬虫暂停，需要你在终端按下任何键以后，再打开我的博客。接下来，等你确认博客已经打开以后，再回到终端按下任意键，Chrome会再次打开登录成功的页面。</p> <p>你还可以试一试把Python程序终止，再重新运行。你会发现代码依然可以接管这个浏览器窗口。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

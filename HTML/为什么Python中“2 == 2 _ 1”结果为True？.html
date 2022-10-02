@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在Python中，你可能会发现这样一个奇怪的现象：</p> <p>为什么会出现<code>2 == 2 &gt; 1</code>的结果为<code>True</code>？如果说这是运算符的优先级问题，那么后两个式子为什么又都是<code>False</code>？</p> <p>实际上这涉及到了Python的<code>链式对比(Chained Comparisons)</code>。在其他语言中，有一个变量<code>x</code>，如果要判断x是否大于1，小于5，可能需要这样写代码：</p> <p>但是在Python中，可以这样写代码：</p> <p>Python能够正确处理这个链式对比的逻辑。</p> <p>回到最开始的问题上，<code>==</code>等于符号和<code>&lt;</code>小于符号，本质没有什么区别。所以实际上<code>2==2&gt;1</code>也是一个链式对比的式子，它相当于<code>2==2 and 2&gt;1</code>。此时，这个式子就等价于<code>True and True</code>。所以返回的结果为True。</p> <p>关于链式对比，可以看官方文档：<a href="https://docs.python.org/3/reference/expressions.html#comparisons" rel="noopener" target="_blank">https://docs.python.org/3/reference/expressions.html#comparisons</a></p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

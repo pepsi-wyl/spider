@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在看《Dive into Python》的单元测试时，发现用作例子的“阿拉伯数字-罗马数字”的转换算法非常的巧妙，现在发上来和大家分享一下。</p> <p>这个算法的聪明之处，就在于他通过一个romanNumeralMap，把罗马数字与阿拉伯数字里面的“边界值”做出一一对应。这个边界刚刚好是罗马数字组合之间的转换。例如，I，II，III都可以通过第一个边界值组合获得；V，VI，VII，VIII可以通过V和I的组合获得。而对于一些特殊的值，则直接列出来。例如IV。通过这个边界值的组合，就能实现所需求的转换。这就类似于在一些机读卡上，需要填写1到100的数字，他会使用01247这样以来:<br/><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br/><span class="line">2</span><br/><span class="line">3</span><br/><span class="line">4</span><br/><span class="line">5</span><br/></pre></td><td class="code"><pre><span class="line">3 = 1 + 2;</span><br/><span class="line">5 = 4 + 1;</span><br/><span class="line">6 = 4 + 2;</span><br/><span class="line">8 = 7 + 1;</span><br/><span class="line">9 = 7 + 2.</span><br/></pre></td></tr></table></figure></p> <p>首先看一下toRoman()函数，把阿拉伯数字转换成罗马数字。它使用Python连接字符串的操作符号 + 来使“边界值”连接到一起。例如用作例子的n = 1356，程序遍历romanNumeralMap，寻找n对应的罗马数字，如果找不到，那就找刚刚比n小一点的数字对应的罗马字符。遍历在能使n 在romanNumeralMap有对应值时结束。</p> <p>所以1356对应的值为MCCCLVI。 这样的操作很类似于在十进制里面，一个数字1356 = 1000 +　300 + 50 + 6，只是阿拉伯数字里面6是一个单独的符号，而罗马数字里面VI是个V + I的组合而已。</p> <p>下面再说说fromRoman()函数，把罗马数字转换成阿拉伯数字。这个函数在理解上面可能比toRoman()稍稍要困难一点。</p> <p>还是用例子来说明，MCMLXXII转换成阿拉伯数字。<br/>其中如下代码<br/><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br/></pre></td><td class="code"><pre><span class="line">s[index:index+len(numeral)]</span><br/></pre></td></tr></table></figure></p> <p>作用是把字符串s中，从第index位到第index+ len(numeral)位（不包含第index + len(numeral)位自身）的字符提取出来。比如：</p> <p>即s的第234位被取出。</p> <p>回到对s = ‘MCMLXXII’的处理。</p> <p>所以MCMLXXII对于的阿拉伯数字是1000+900+50+10+10+1+1 = 1972</p> <p>这个方法，把一个罗马数字从高位开始逐次剥离最高位，从而渐渐的把数字缩小。</p> <p>最近正在学习算法。因为越来越发现现在做的东西，如果仅仅实现功能的话，性能会出现瓶颈。希望我以后能写出更好的算法。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

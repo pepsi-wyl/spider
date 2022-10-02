@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p> 今天在读者交流群里面，有同学提到这样一个问题：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-04-06-20-32-34.png"/></p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-04-06-20-32-51.png"/></p> <p>这个同学想实现，在代码第35行，如果进入了 <code>if</code> 判断，那么就退出第40-43行对应的 ac 函数。</p> <p>能问出这个问题，说明这个同学显然没有认真看我的微信公众号。就在几天前我才发了一篇文章：<a href="https://mp.weixin.qq.com/s/po6wGCF_Ww8xDJKgEywZ0g" rel="noopener" target="_blank">一日一技：Python多线程的事件监控</a>。使用这篇文章里面讲到的方法，就可以轻易实现他的需求。</p> <p>在那篇文章中，我们讲到了<code>threading.Event</code>，这个东西不仅可以在线程之间使用，也可以在主线程和子线程之间使用。</p> <p>这个同学的代码不够清晰，我们稍稍修改一下：</p> <p>如果你直接运行上面这段代码，你会发现程序每5秒钟会通过<code>ac</code>函数打印一条字符串，但永远不会停止。现在，我们在 需要在<code>#TODO</code>的位置怎么写代码，才能让程序停止呢？这个时候，我们把<code>threading.Event</code>引入进来。在外面生成并传给子线程：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-04-06-20-59-47.png"/></p> <p>当子线程检测到满足结束条件的时候，调用<code>event.set()</code>。主线程里面，<code>ac</code>函数使用一个循环不停检测<code>event.is_set()</code>。一开始<code>event.is_set()</code>始终返回 <code>False</code>，直到<code>event.set()</code>以后，就返回 True。这样一来，<code>ac</code>函数就像是收到了通知，于是可以结束函数的运行了。</p> <p>如果大家有任何编程上的问题，可以进入未闻 Code 读者交流微信群提问。目前交流群一群、二群已经慢了，三群正在等待更多同学的加入。加我微信号<code>mekingname</code>，备注<code>粉丝群</code>就可以进入。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

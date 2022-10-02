@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="referrer" content="no-referrer"/>
+    <title>数据分析页面</title>
+
+    <!-- Favicons -->
+    <link href="static/assets/img/favicon.ico" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,600,600i,700,700i,900"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+    <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="static/assets/css/style.css" rel="stylesheet">
+
+    <!-- Echarts -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+
+</head>
+<body>
+<!-- ======= 头部 ======= -->
+<header id="header">
+    <div class="container">
+
+        <div class="logo float-left">
+            <img src="static/assets/img/favicon.ico" alt="" class="img-fluid">
+        </div>
+
+        <nav class="nav-menu float-right d-none d-lg-block">
+            <ul>
+                <li><a href="/admin">管理员数据重新获取</a></li>
+
+                <li><a href="/index">首页<i class="la la-angle-down"></i></a></li>
+                <li><a href="/blog">博客</a></li>
+                <li class="active"><a href="/fenxi">数据分析</a></li>
+
+                <li class="drop-down"><a href="">关于</a>
+                    <ul>
+                        <li class="drop-down"><a href="#">pepsi-wyl</a>
+                            <ul>
+                                <a href="#" class="phone">
+                                    <i class="icofont-phone"> 136 7333 0837 </i>
+                                </a>
+                                <a href="/static/assets/img/qq.png" class="qq" target="_blank">
+                                    <i class="icofont-qq"> 2322535585 </i>
+                                </a>
+                                <a href="/static/assets/img/wechat.jpg" class="wechat" target="_blank">
+                                    <i class="icofont-wechat"> wyl15236596738 </i>
+                                </a>
+                                <a href="https://mail.qq.com/" target="_blank">
+                                    <i class="icofont-email"> 2322535585@qq.com </i>
+                                </a>
+                                <a href="https://github.com/pepsi-wyl" class="github" target="_blank">
+                                    <i class="icofont-github">GitHub | pepsi-wyl</i>
+                                </a>
+                            </ul>
+                        </li>
+                        <li class="drop-down"><a href="#">锋芒工作室</a>
+                            <ul>
+                                <li><a href="#">关于工作室</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav><!-- .nav-menu -->
+
+    </div>
+</header><!-- End Header -->
+
+<!-- ======= 内容 ======= -->
+<section id="team" class="team">
+    <div class="container">
+        <section class="counts section-bg">
+
+            <div id="container1" style="height: 500px"></div>
+            <script type="text/javascript">
+                var dom1 = document.getElementById("container1");
+                var myChart1 = echarts.init(dom1);
+                var app1 = {};
+                var option1;
+                option1 = {
+                    title: {
+                        text: '博客分类及其数量情况'
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: {},
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'value',
+                        boundaryGap: [0, 0.01]
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: {{ classify|tojson }}
+                    },
+                    series: [
+                        {
+                            type: 'bar',
+                            data: {{ classifyCount|tojson }}
+                        }
+                    ]
+                };
+                if (option1 && typeof option1 === 'object') {
+                    myChart1.setOption(option1);
+                }
+            </script>
+
+            <div id="container" style="height: 500px"></div>
+            <script type="text/javascript">
+                var dom = document.getElementById("container");
+                var myChart = echarts.init(dom);
+                var app = {};
+                var option;
+                option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    legend: {},
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: {{ classify|tojson }}
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value'
+                        }
+                    ],
+                    series: [
+                        {
+                            name: '博客篇数',
+                            type: 'bar',
+                            emphasis: {
+                                focus: 'series'
+                            },
+                            data: {{ classifyCount|tojson }}
+                        }
+                    ]
+                };
+                if (option && typeof option === 'object') {
+                    myChart.setOption(option);
+                }
+            </script>
+
+        </section><!-- End Counts Section -->
+
+    </div>
+</section><!-- End Our Team Section -->
+
+<!-- ======= 页脚 ======= -->
+<footer id="footer">
+    <div class="container">
+        <div class="copyright">
+            Designed by pepsi-wyl. | &copy; 2022 <strong><span> 锋芒工作室 </span></strong>. All Rights Reserved.
+        </div>
+        <div class="copyright">
+            <a target="_blank" href="https://beian.miit.gov.cn"
+               style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><p
+                    style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+                豫ICP备2022003015号-1 | </p></a>
+            <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41052202001307"
+               style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img
+                    src="/static/assets/img/备案图标.png" style="float:left;"/>
+                <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">豫公网安备
+                    41052202001307号</p></a>
+        </div>
+    </div>
+</footer>
+
+<!-- ======= 返回顶部 ======= -->
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="static/assets/vendor/jquery/jquery.min.js"></script>
+<script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<script src="static/assets/vendor/php-email-form/validate.js"></script>
+<script src="static/assets/vendor/jquery-sticky/jquery.sticky.js"></script>
+<script src="static/assets/vendor/venobox/venobox.min.js"></script>
+<script src="static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+<script src="static/assets/vendor/counterup/counterup.min.js"></script>
+<script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="static/assets/vendor/aos/aos.js"></script>
+
+<!-- Template Main JS File -->
+<script src="static/assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>Jupyter 是数据分析领域非常有名的开发环境，使用 Jupyter 写数据分析相关的代码会大大节约开发时间。</p> <p>设想这样一个场景：别的部门的同事传给你一个数据分析的模块，用于实现对数据的高级分析。模块里面有上百个函数。</p> <p>如果直接写 Python 文件来调用数据分析模块，那么使用方法非常简单：</p> <p>现在，你需要使用 Jupyter 来调用这个分析模块。你应该怎么在 Jupyter里面调用？</p> <p>你可能会觉得，这还不简单吗？直接把这个模块的代码与 Jupyter Notebook 的 <code>.ipynb</code> 文件放在一起，然后在 Jupyter 里面像导入普通模块那样导入即可，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-12-22-34-24.png"/></p> <p>那么现在问题来了，如果我此时修改了 <code>analyze.py</code>文件，会出现什么情况呢？</p> <p>我们改一下看看，如下图所示。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-12-22-36-31.png"/></p> <p>重新运行这个 Cell 中的代码，代码中虽然有<code>from analyze import FathersAnalyzer</code>，看起来像是重新导入了这个模块，但是运行却发现，它运行的是修改之前的代码。</p> <p>这是因为，一个 Jupyter Notebook 中的所有代码，都是在同一个运行时中运行的代码，当你多次导入同一个模块时，Python 的包管理机制会自动忽略后面的导入，始终只使用第一次导入的结果（所以使用这种方式也可以实现单例模式）。</p> <p>那么如果我在修改了被导入的包以后，想重新导入它怎么办呢？有3种方案：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-12-22-43-46.png"/></p> <p>但这种方案弊端也很明显——除非你按顺序运行每一个 Cell，否则，你的代码会变成下图这样：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-12-22-49-50.png"/></p> <p>在每一个 Cell 里面都需要 重新加载一次分析模块，否则，很有可能在你单独运行某一个 Cell 的时候，用的是老的代码，就会导致难以察觉的 bug。</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-12-22-53-57.png"/></p> <p>其中关键的代码有三行：</p> <p>这三行代码只有在 Jupyter 里面才能正常运行，在 普通的.py 文件里面这样写会报错。它们的作用是：第1行启动<code>autoreload</code>机制。第2行，设置自动加载通过<code>%aimport</code>导入的模块。第3行使用<code>%aimport</code>导入<code>analyze</code>模块。</p> <p>这样写以后，任意一个 Cell 运行，所有被<code>%aimport</code>导入的模块都会被重新加载一次。从而让你每次都使用最新的代码。</p> <p>当然，你还可以进一步偷懒，把特殊代码缩减为2行：</p> <p><code>%autoreload</code>后面的参数被设置为2时，每次运行任意一个 Cell，都会自动重新加载所有<code>import xxx</code>导入的模块。这样做的代价是，运行会慢一些。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

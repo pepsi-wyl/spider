@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在上一篇文章中，我们说到了，<code>itertools.tee</code>不是线程安全的，并给出了一个例子，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-05-22-04-16.png"/></p> <p>在两个线程里面同时运行分裂出来的生成器对象，就会导致报错。</p> <p>现在，你想看看<code>itertools.tee</code>的源代码，但是你会发现，在 PyCharm 里面，它的源代码如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-06-21-55-40.png"/></p> <p>这是因为，在 CPython 中，<code>itertools.tee</code>底层是通过C 语言实现的，所以你不能在 PyCharm 中看到它的源代码。但是你可以通过阅读 <a href="https://github.com/python/cpython/blob/master/Modules/itertoolsmodule.c" rel="noopener" target="_blank">Python 的源代码中的Modules/itertoolsmodule.c文件</a>，找到它的实现算法。</p> <p>导致问题的核心部分在如下图所示的两段代码中：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-06-22-03-11.png"/></p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-06-22-05-19.png"/></p> <p>大家看不懂也没有关系，根据我上一篇文章中使用 Python 实现的简化版本就足够帮助理解了。</p> <p>我们使用简化版本来解释其中线程不安全的地方：</p> <p>当两个线程同时运行到<code>if not queue</code>时，发现当前各自的队列都是空的，于是进入<code>value = next(g)</code>获取下一个值。其中，线程 A 先进入那么几毫秒。然后线程 B 进入<code>value = next(g)</code>。但由于此时线程 A 中的<code>next(g)</code>正在运行，尚未结束，线程 B 又跑来运行，于是就导致了报错的发生。Python 中，生成器不是线程安全的。</p> <p>那么如何让<code>itertools.tee</code>分裂出来的多个生成器可以在多线程中运行呢？其关键因素就是让<code>value = next(g)</code>这一行一次只能让一个线程运行。所以我们可以通过加锁来实现。</p> <p>我们来看看运行效果：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-06-22-21-01.png"/></p> <p>多线程完美运行。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

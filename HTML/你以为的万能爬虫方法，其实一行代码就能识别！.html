@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在以前的公众号中，我提到Selenium/Puppeteer/Pyppeteer有很多特征可以被网站检测到。于是，有些同学想到了另一个方法，就是自己写一个Chrome插件，在网站打开的时候，注入到页面中，然后通过这个注入的JavaScript代码来操作页面，获取数据。</p> <p>这个方法理论上说是万能的，因为注入的JavaScript能够获取当前Dom树，任何接口签名都无法拦截到自己注入的JavaScript代码，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220208204228.png"/></p> <p>而Chrome插件访问自己的服务器后端是没有跨域问题的，完全可以让插件获取到数据以后，发送给自己的服务器，这样就可以把数据收入囊中了。</p> <p>你还可以通过JavaScript自动点击按钮，实现自动翻页。所以你只需要把网页打开，启动插件，然后他就能自动刷新，自动获取数据了。</p> <p>这个方法看起来非常万能，而且无法被防御……</p> <p>事实真的是这样吗？我写了一个Demo来做测试。Demo页面长下面这样：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220208204724.png"/></p> <p>当我手动点击<code>点击我</code>按钮的时候，会弹出一个框：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220208204814.png"/></p> <p>现在，我使用JavaScript来选择这个按钮，然后点击它：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220208204936.png"/></p> <p>为什么网站知道我在用JavaScript点击了按钮呢？其实只要我给你看这个页面的HTML，你就知道了：</p> <p>关键的点就是这个<code>event.isTrusted</code>。它是浏览器的一个功能，如果这个事件是人通过鼠标点击的，那么它是<code>true</code>。如果事件是通过JavaScript触发的，那么它是<code>false</code>。</p> <p>关于这个属性，你可以查看<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Event/isTrusted" rel="noopener" target="_blank">Event.isTrusted - Web API 接口参考 | MDN</a>。这个例子里面，我用的是Vue来操作页面，但实际上<code>event</code>是浏览器的特性，使用原生JavaScript也可以实现：</p> <p>那么如何绕过这个<code>event.isTrusted</code>呢？其实很简单，你使用Selenium/Puppeteer，天然就能绕过它。</p> <p>看到这里，大家肯定发现一个很好笑的问题，Selenium/Puppeteer不能解决的问题，用JavaScript轻松就能解决。但JavaScript解决不了的问题，用Selenium/Puppeteer又完全没有问题。</p> <p>这就像是猫吃老鼠，老虎吃猫，大象吃老虎，但是老鼠可以吃大象。寸有所长，必有所短，寸有所短，也可能有所长。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

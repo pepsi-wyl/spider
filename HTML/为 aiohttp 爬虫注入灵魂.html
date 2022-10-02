@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>听说过异步爬虫的同学，应该或多或少听说过<code>aiohttp</code>这个库。它通过 Python 自带的<code>async/await</code>实现了异步爬虫。</p> <p>使用 aiohttp，我们可以通过 requests 的api写出并发量匹敌 Scrapy 的爬虫。</p> <p>我们在 aiohttp 的官方文档上面，可以看到它给出了一个代码示例，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-12-18-21-55-56.png"/></p> <p>我们现在稍稍修改一下，来看看这样写爬虫，运行效率如何。</p> <p>修改以后的代码如下：</p> <p>这段代码访问我的爬虫练习站100次，获取100页的内容。</p> <p>大家可以通过下面这个视频看看它的运行效率：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/slow.2019-12-18 22_51_37.gif"/></p> <p>可以说，目前这个运行速度，跟 requests 写的单线程爬虫几乎没有区别，代码还多了那么多。</p> <p>那么，应该如何正确释放 aiohttp 的超能力呢？</p> <p>我们现在把代码做一下修改：</p> <p>在修改以后的代码里面，我让这个爬虫爬1000页的内容，我们来看看下面这个视频。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/fast.2019-12-18 22_49_49.gif"/></p> <p>可以看到，目前这个速度已经可以跟 Scrapy 比一比了。并且大家需要知道，这个爬虫只有1个进程1个线程，它是通过异步的方式达到这个速度的。</p> <p>那么，修改以后的代码，为什么速度能快那么多呢？</p> <p>关键的代码，就在：</p> <p>在慢速版本里面，我们只有1个协程在运行。而在现在这个快速版本里面，我们创建了100个协程，并把它提交给<code>asyncio.wait</code>来统一调度。<code>asyncio.wait</code>会在所有协程全部结束的时候才返回。</p> <p>我们把1000个 URL 放在<code>asyncio.Queue</code>生成的一个异步队列里面，每一个协程都通过 while True 不停从这个异步队列里面取 URL 并进行访问，直到异步队列为空，退出。</p> <p>当程序运行时，Python 会自动调度这100个协程，当一个协程在等待网络 IO 返回时，切换到第二个协程并发起请求，在这个协程等待返回时，继续切换到第三个协程并发起请求……。程序充分利用了网络 IO 的等待时间，从而大大提高了运行速度。</p> <p>最后，感谢实习生小河给出的这种加速方案。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

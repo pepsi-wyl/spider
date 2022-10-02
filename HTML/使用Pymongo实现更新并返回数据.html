@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>有这样一个业务场景：</p> <p>我有100篇故事，放在 MongoDB 里面。我做了一个 web 接口，每次请求返回一篇故事。希望能够实现：</p> <p>每次请求返回的故事都不一样，在100次请求里面，每篇故事都需要返回。直到100篇故事全部返回完成。第101次与第1次相同，第102次与第2次相同……</p> <p>为了实现这个目的，在 MongoDB 里面每一篇故事有3个字段：</p> <p>如果只有一个人请求这个接口，并且他会等着上一次请求返回完成了再请求下一次，那么关键代码可以这样写：</p> <p>每次查询都取 count 最小的这一条。查询完成以后，就更新 count 字段。</p> <p>但是，如果有很多人同时访问这个 web 接口，那么就会出现并发读写冲突的问题。当第一个人读取了一篇故事，还没有来得及更新 count 时，另一个人又访问接口，这样他们两人就会得到同一篇故事。</p> <p>为了解决这个问题，就需要把查询和更新作为一个原子操作来执行。此时，就要用到 pymongo 的<code>find_one_and_update</code>方法。它根据特定条件查询一条记录，同时更新这条记录的 count 值。这两个行为是通过一条命令完成的，即时多个人同时请求也不会出现并发冲突的情况。</p> <p><code>find_one_and_update</code>的使用方法如下：</p> <p>其中，第一个参数表示查询条件，跟<code>find</code>的第一个参数一致。第二个参数表示更新的内容，与<code>update_one</code>的第二个参数一致。<code>sort</code>表示排序方式，它的值是一个包含元组的列表，元组的第一个元素为被排序的字段名，第二个元素为1表示升序，为-1表示降序。</p> <p><code>update_one_and_update</code>还有其他参数，可以参考它的<a href="https://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.find_one_and_update" rel="noopener" target="_blank">官方文档</a>。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

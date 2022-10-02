@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>Redis 在日常的开发中，会积累大量的 Key，占用不少内存空间。有时候，我们想知道当前 Redis 里面有多少个 Key，是哪个 Key 占用了最大的内存。</p> <p>但是，我们知道，由于 Redis 是单线程数据库，所以在线上环境是绝对禁止使用<code>keys *</code>这种命令的，因为它会花费很长时间扫描所有的 Key，在这个过程中，Redis 会卡死，无法处理其他的读写操作。</p> <p>那么，我们应该怎么知道当前有多少个 Key 呢？有同学说可以使用<code>scan</code>命令。但这个命令一方面是需要写程序来迭代，另一方面是它给出的结果可能是不准确的。</p> <p>也有同学会说，可以使用<code>info keyspace</code>命令，运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-02-26-20-48-27.png"/></p> <p>确实可以看到有多少个 Key。不过另一个问题是，怎么知道哪个 Key 占用的内存空间最大？</p> <p>还有时候，Redis 里面可能有几万十几万个 Key，里面有些 Key 是可以删掉的。但是由于我们不能使用<code>keys</code>命令查看当前有哪些 Key，所以不知道这些可以删掉的 Key 竟然还在。</p> <p>实际上，这些问题，我们使用一个叫做<a href="https://github.com/xueqiu/rdr" rel="noopener" target="_blank">RDR</a>的工具，都可以解决。在 RDR 的 Github 上，可以找到对应系统的可执行文件。我们以 Linux 版本为例来进行说明。Linux 版本的可执行文件地址为：<code>https://github.com/xueqiu/rdr/releases/download/v0.0.1/rdr-linux</code>，下载以后，赋予可执行权限：</p> <p>接下来，我们需要找到 <code>dump.rdb</code>文件。</p> <p>Redis 默认开启了<code>RDB</code>方式的持久化储存。满足一定条件时，Redis 会把内存中的数据存放到硬盘中，防止由于突然断电导致数据丢失。默认情况下，RDB 文件在<code>/var/lib/redis/dump.rdb</code>，这个文件只有 root 用户可以读取。</p> <p>如果你现在不是 root 用户，那么你可以把它复制出来，修改成当前用户，我的 Linux 系统当前用户名叫做 kingname，所在的用户组也叫 kingname，所以可以执行如下 shell 命令：</p> <p>修改了用户以后，现在我们让 RDR 来读取这个RDB 文件：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-02-26-20-57-12.png"/></p> <p>现在，打开浏览器，打开<code>http://IP:8766</code>，就可以看到当前 Redis 的各个 Key 的统计信息：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-02-26-20-58-22.png"/></p> <p>不仅可以看到Redis 有哪些 Key，还能看到每个 Key 里面有多少元素，大小是多少。</p> <p>而且由于是分析的 RDB 文件，所以也完全不需要担心对线上数据造成任何影响。</p> <p>有了这个工具以后，要找出占用空间最大的 Key，就非常简单了。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

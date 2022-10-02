@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-10-02-15-04-09.png"/></p> <p>之前有一位爬虫大佬写了一篇文章，说 HTTP/2协议天然就能防大部分的爬虫。Python 无论是 requests 还是 Scrapy 都不支持 HTTP/2协议。</p> <p><a href="https://http2.golang.org/" rel="noopener" target="_blank">Go + HTTP/2</a>这个网站可以检测你是否使用 HTTP/2协议进行请求。当我们直接使用浏览器访问的时候，页面长这样：</p> <p><img alt="注意红框中的文字" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-10-02-14-51-13.png"/></p> <p>但如果我们直接使用 Scrapy 访问这个页面，并打印源代码，返回的 HTML 长这样：</p> <p><img alt="注意红框中的文字" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-10-02-14-52-26.png"/></p> <p>这样看起来，似乎Scrapy 确实不支持HTTP/2协议？</p> <p>但我为什么总是一直强调要读官方文档，不要去搜索一些垃圾博客呢。因为官方文档里面，已经明确告诉你Scrapy 不仅原生支持 HTTP/2，而且只需要改一个配置就可以了：<a href="https://docs.scrapy.org/en/latest/topics/settings.html#download-handlers-base" rel="noopener" target="_blank">Settings — Scrapy 2.5.0 documentation</a>。</p> <p><img alt="更换下载器句柄就可以了" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-10-02-14-55-17.png"/></p> <p>请大家注意上图中标红色方框的地方。根据它的描述，我只需要在<code>settings.py</code>文件中，更新下载器句柄（handlers）就可以了。我们来测试一下。把下面这段代码直接复制到 Scrapy 爬虫中：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-10-02-14-57-55.png"/></p> <p>改好以后，重新运行爬虫，打印出来的源代码如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-10-02-14-59-26.png"/></p> <p>可以看到，不需要安装任何额外的库。Scrapy 原生就支持 HTTP/2了。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

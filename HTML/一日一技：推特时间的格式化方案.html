@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在使用推特开放API获取推文的时候，会发现推文的发布时间是下面这样的：</p> <p>现在我想把它转换为<code>2019-12-24 18:51:15</code>的形式，应该如何操作呢？</p> <p>可能有同学会按照下面这个逻辑来处理：</p> <p>整个过程看起来非常麻烦。</p> <p>实际上，我们有更简单的办法来处理。<code>Tue Dec 24 10:51:15 +0000 2019</code>对应的时间格式为<code>%a %b %d %H:%M:%S %z %Y</code>；对于一个<code>datetime.datetime</code>对象，我们可以调用它的<code>astimezone</code>方法把时区移除，移除以后就会变成当地时间。</p> <p>完整代码如下：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-12-25-21-38-09.png"/></p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

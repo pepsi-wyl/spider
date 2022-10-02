@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>如果你经常使用Python的命令行交互环境，你一定遇到过下面这个现象：</p> <p>首先定义一个变量<code>a</code>，它的值为字符串<code>test</code>。现在，当你在命令行交互环境直接输入变量名再回车的时候，你看到的是<code>'test'</code>，当你输入<code>print(a)</code>的时候，你看到的却是<code>test</code>。</p> <p>直接输入变量名回车，字符串会被单引号包起来。而使用<code>print</code>函数打印变量，字符串又没有引号。</p> <p>如果说引号只是一个小问题的话，再来看看反斜杠会怎么样：</p> <p>在这里，<code>b</code>变量的值为Windows下面的一个文件夹路径。在定义的时候，我使用的是单根反斜杠。</p> <p>当我输入变量名，然后回车时，看到的结果是<code>'D:\\game\\pal4'</code>，不仅有最外层的引号，而且反斜杠全部变成了两根。</p> <p>但是当我使用<code>print</code>函数打印出来的时候，一切又正常了。</p> <p>觉得很诡异吗？</p> <p>实际上，输入变量名，回车以后，你看到的才是这个字符串真正的样子，因为在Python里面是不存在单根反斜杠的。当你要表示反斜杠本身的时候，就应该是<code>\\</code>这种写法。</p> <p>当然在定义的时候你可以只写单根反斜杠，在大多数情况下，Python会理解你的意图，所以它会自动把单根反斜杠转换为两个反斜杠。</p> <p>而使用<code>print</code>关键字打印出来的，是经过Python优化，更便于人类阅读的样子。</p> <p>当然，使用<code>print</code>函数也能看到字符串真正的样子，不过需要修改一下：</p> <p>当你使用<code>repr</code>函数先处理字符串，再打印时，它的效果就和直接输入变量名回车是一样的了。</p> <p>在Python中，<code>repr(对象)</code>本质上是调用了对象的<code>__repr__</code>这个方法。而如果直接<code>print(对象)</code>，实际上是打印了对象<code>__str__</code>方法返回的内容。</p> <p>我们来做一个实验：</p> <p>动手测试一下，输入<code>you</code>然后直接回车显示的是什么内容。输入<code>print(you)</code>显示的又是什么内容。</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-03-18-21-10-57.png"/></p> <p>从上面的例子可以看出，直接输入变量名回车和直接用<code>print</code>函数打印调用的是对象的不同方法。所以他们当然可以不一样。</p> <p>回到昨天的问题上来。在PyCharm的调试模式中，你看到的内容实际上是变量对象的<code>__repr__</code>方法返回的内容，这里的内容是字符串在Python里面的真正的样子，所以斜杠会变多。</p> <p>上面说到，当你输入Windows路径的时候，大多数情况下，Python能够理解你的意图，把单根反斜杠转成双反斜杠。不过也有例外的情况，例如：</p> <p>假设有一个文件夹的名字叫做<code>u6211</code>。它在<code>pal4</code>文件夹里面。</p> <p>那么，路径应该是：<code>D:\game\pal4\u6211</code></p> <p>如果在Python里面执行，会出现什么问题？</p> <p>怎么和前面的pal4拼在一起了？因为<code>\u6211</code>是一个Unicode编码，表示中文<code>我</code>。</p> <p>这种情况下，你有两种解决方式：</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

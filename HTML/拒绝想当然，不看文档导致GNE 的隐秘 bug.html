@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p><a href="https://github.com/kingname/GeneralNewsExtractor" rel="noopener" target="_blank">GNE</a>上线4天，已经有很多朋友通过它来编写自己的新闻类网页通用爬虫。</p> <p>今天有一个用户来跟我反馈，GNE 0.1.4版本在提取澎湃新闻时，只能提取一小部分的内容。</p> <p>一开始我以为是提取算法有问题，Debug 了半天，最后才发现，是新闻正文在预处理的时候，就被提前<code>删除</code>了！</p> <p>为了解释这个问题，我们用一小段 HTML 代码来还原当时的场景：</p> <p>阅读过 GNE 源代码的朋友都知道，GNE 会在预处理阶段尽可能移除没什么用的 HTML 标签。例如上面这段代码中的两行<code>&lt;p class="con" /&gt;</code>都属于会干扰提取结果，且对提取没有任何帮助的标签。</p> <p>于是我们使用 lxml 库的方法来移除它：</p> <p>根据想当然的理论：</p> <p>整个过程看起来没有问题，并且预期移除以后的 HTML 应该是这样的：</p> <p>但实际上，现实情况与想当然的情况自然不一样。真正的输出结果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-01-04-16-12-49.png"/></p> <p><code>&lt;div class="txt"&gt;</code>这个标签下面的<code>text()</code>有三行，分别为<code>第一行</code>、<code>第二行</code>、<code>第三行</code>。但是使用上面的代码移除时，<code>第二行</code>与<code>第三行</code>都一并被删除了。</p> <p>这是因为，这就是<code>ElementTree.remove</code>这个方法的行为。它不仅会移除这个节点，还会移除这个节点父节点的 text()中，位于这个节点后面的所有内容。</p> <p>所以，正常的做法应该是直接调用要被移除这个节点的<code>.drop_tag()</code>方法。我们修改一下上面的代码：</p> <p>运行效果如下图所示。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-01-04-16-14-38.png"/></p> <p>成功达到了我们想要的目的。</p> <p>GNE 已经更新了版本，修复了这个 bug。使用 GNE 的同学请升级到0.1.5以上版本：</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

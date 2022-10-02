@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>说到安装 Python 的第三方库，会 Python 的同学都知道，在终端使用<code>pip install xxx</code>即可。</p> <p>那么如果我想在代码里面安装第三方库怎么办呢？可能有人想到使用 <code>os</code> 模块：</p> <p>这种方法确实可行，并且即使你在虚拟环境中使用这种方式安装，也确实不会安装到系统的 Python 环境中。</p> <p>但是这种方式总感觉有点奇怪。而且如果这个<code>package_name</code>字符串经过精心构造，可以执行任意系统命令，例如：</p> <p>为了防止这种情况发生，我们可以直接调用<code>pip</code>这个 Python 包：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-29-21-52-23.png"/></p> <p>命令行下面的参数都可以通过转换为列表的形式执行，例如：</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

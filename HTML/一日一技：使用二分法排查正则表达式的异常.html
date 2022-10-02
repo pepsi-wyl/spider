@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>现在我有10亿条微博正文，并从同事手上拿到了15000条需要过滤的垃圾信息正则表达式，只要微博正文符合任何一条正则表达式，就删除这条微博。</p> <p>正则表达式的格式为：</p> <p>存放在一个名为<code>trash.txt</code>的文本文件中，每个正则表达式一行。</p> <p>一般情况下，我只需要使用如下几行代码就能实现这个功能：</p> <p>但是当我的代码运行到<code>re.compile</code>这一行时，报错了，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-12-30-12-56-46.png"/></p> <p>并且，即使你在 Google 上面搜索：<code>re.error: multiple repeat at position</code>，截至2019年12月30日，你能找到的都是对这个报错的讨论，但没有一个讨论能解决本文描述的问题。</p> <p>那我们自食其力，来试着解决一下这个问题。它报错报的是<code>position 167</code>，那么我们来看看第167个字符有什么问题。在 PyCharm 中，可以在右下角查看你选中了多少个字符，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-12-30-12-59-22.png"/></p> <p>从截图中可以看到，第167个字符所在的这一行正则表达式为：<code>|张三丰.*?张翠山.*?张无忌</code>，但是我完全看不出这一行正则表达式有什么问题。</p> <p>由于报错了，那么肯定至少有一行正则表达式有问题，我们假设有问题的正则表达式有且只有一行。现在我们有15000行正则表达式，如何找出有问题的这一行呢？</p> <p>这个时候，我们就可以使用二分查找来解决这个问题，$log_{2}15000=13.8$，我们最多查找14次就能找到有问题的这一行正则表达式。</p> <p>由于正则表达式一共有15000行，我们就先看0-7500行在编译时是否会报错，如果报错，在看<code>0-3750</code>行是否报错，如果不报错，在看<code>3750-7500</code>行是否报错……如此分割下去，直到找到报错的这一行正则表达式。</p> <p>二分查找的代码如下：</p> <p>运行结果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-12-30-13-20-24.png"/></p> <p>原来出问题的地方在：<code>.*??</code>，这里多写了一个问号。把这一行改成<code>|赵大.*?包</code>以后，编译成功通过。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

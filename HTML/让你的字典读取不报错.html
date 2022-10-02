@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>我们知道，读取 Python 字典时，如果某个 Key 不存在，Python 就会报错，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-30-22-42-39.png"/></p> <p>为了防止它报错，我们可以使用<code>.get()</code>方法：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-30-22-43-26.png"/></p> <p>但每次都要写<code>.get()</code>稍显麻烦。于是我们可以通过自己实现一个自定义的字典对象，来解决这个问题。</p> <p>我们自定义一个类，继承<code>dict</code>，然后实现它的<code>__missing__</code>方法：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-30-22-46-13.png"/></p> <p>只要这个 Key 不存在，就会返回 <code>None</code>。</p> <p>在 Python 的<code>collections</code>工具模块中，有一个<code>defaultdict</code>实现了类似的事情。我们看它的使用方法。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-30-22-54-45.png"/></p> <p><code>a = defaultdict(str)</code>接收一个函数，让<code>a</code>变量成为一个<code>defaultdict</code>类型的对象，它可以像普通字典一样被赋值和读取。</p> <p>但是当你读取一个不存在的 key 时，它会自动生成一个默认值，并把默认值和这个 key 插入到字典中。这个默认值取决于你在<code>defaultdict</code>传入的参数。如果传入的是<code>str</code>那么默认值就是空字符串，如果是<code>int</code>那么默认值就是0.当然你也可以传入自定义的一个函数，从而控制这个默认值。例如我自定义一个函数，用于返回当前的时间，运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-30-22-59-25.png"/></p> <p>当插入的 key 不存在时，就自动以当前时间作为默认值，并存入到字典中。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

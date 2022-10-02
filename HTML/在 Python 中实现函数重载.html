@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>假设你有一个函数connect，它有一个参数address，这个参数可能是一个字符串，也可能是一个元组。例如：</p> <p>你想在代码里面兼容这两种写法，于是你可能会这样写代码：</p> <p>这种写法简单直接，但是如果参数的类型更多，那么你就需要写很长的 <code>if-elif-elif-...-else</code>。代码看起来就非常不美观。</p> <p>学习过 Java 的同学，应该对函数重载比较熟悉，可以定义几个名字相同的函数，但是他们的参数类型或者数量不同，从而实现不同的代码逻辑。</p> <p>在 Python 里面，参数的数量不同可以使用默认参数来解决，不需要定义多个函数。那如果参数类型不同就实现不同的逻辑，除了上面的 <code>if-else</code>外，我们还可以使用<code>functools</code>模块里面的<code>singledispatch</code>装饰器实现函数重载。</p> <p>我们来写一段代码：</p> <p>我们运行一下这段代码，大家看看根据参数的不同，有什么样的不同效果：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-12-11-21-55-13.png"/></p> <p>可以看到，我们调用的函数，始终都是<code>connect</code>，但是由于传入参数的类型不同，它运行的结果也不一样。</p> <p>我们使用<code>singledispatch</code>装饰一个函数，那么这个函数就是我们将会调用的函数。</p> <p>这个函数在传入参数不同时的具体实现，通过下面注册的函数来实现。注册的时候使用<code>@我们定义的函数名.register</code>来注册。被注册的函数名叫什么无关紧要，所以这里我都直接使用下划线代替。</p> <p>被注册的函数的第一个参数，通过类型标注来确定它应该使用什么类型。当我们调用我们定义的函数是，如果参数类型符合某个被注册的函数，那么就会执行这个被注册的函数。如果参数类型不满足任何一个被注册的函数，那么就会执行我们的原函数。</p> <p>使用类型标注来指定参数类型是从 Python 3.7才引入的新特性。在 Python 3.6或之前的版本，我们需要通过<code>@我们定义的函数名.register(类型)</code>来指定类型，例如：</p> <p>同时，还有一个需要注意的点，就是只有第一个参数的不同类型会被重载。后面的参数的类型变化会被自动忽略。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

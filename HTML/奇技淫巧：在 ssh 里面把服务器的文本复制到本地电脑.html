@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>使用 macOS 的同学，应该熟悉一个命令<code>pbcopy</code>，它可以在命令行中把一段内容写入到剪贴板，例如：</p> <p>就能把字符串<code>kingname</code>复制到剪贴板里面。我们也可以使用这个方法把一个文件中的内容写入到剪贴板：</p> <p>这样我们就不需要把文件打开再手动复制的。</p> <p>有时候，我要把服务器上面的日志复制下来。原来都是进入服务器以后，用 vim 打开日志文件，用鼠标选中再复制。且不说服务器是 Linux，没有<code>pbcopy</code>这个命令，即使有这个命令，服务器上又怎么能访问本地的剪贴板呢？</p> <p>在网上一搜，竟然还真有办法。<a href="https://www.laruence.com/2020/05/21/5880.html" rel="noopener" target="_blank">使用OSC52实现iTerm2远程pbcopy - 风雪之隅</a>这篇文章借助 iterms 的一个功能和几个特殊的字符，通过 php 实现了这个功能。我们来把它改写成 Python 版本。</p> <p>首先打开 iterms 的设置，把方框框住的这一项勾上：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-10-01-21-29-25.png"/></p> <p>然后，在 iterms 里面，通过 ssh 连上服务器。</p> <p>然后，我们来写一段 Python 代码：</p> <p>然后在服务器上运行这段代码，运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-10-01-21-40-11.png"/></p> <p>什么都没有打印出来？但不要担心，现在，你随便找一个可以打字的输入框，按下键盘上面的<code>Command +V</code>键。你会发现，<code>青南</code>两个字竟然被粘贴出来了！</p> <p>有了这个机制，我们就来人工写一个<code>pbcopy.py</code>，接收管道的输入：</p> <p><img alt="在公众号后台回复 pbcopy 获得代码文本" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-10-01-22-08-35.png"/></p> <p>其中，<code>#! /usr/bin/python3</code>是远程服务器上面 Python 的地址。你可以通过命令<code>which python3</code>找到这个地址。</p> <p>保存完成以后，给他添加可执行权限：<code>chmod +x pbcopy.py</code>。</p> <p>现在，我们试一试把远程的多行文本复制到本地的剪贴板中：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-10-01-21-51-22.png"/></p> <p>我这里复制的就是这个代码自身。大家也可以使用其他文件来测试。复制完成以后，我们随便找个地方粘贴，发现复制成功！</p> <p>现在，我们使用软连接，把这个可执行文件变得更像命令一些：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2020-10-01-21-53-54.png"/></p> <p>完美满足要求。</p> <p>需要注意的是，这个程序会把管道输入的所有内容全部接收完成以后才会复制，所以，如果你输入的文本内容太大，可能会撑爆内存。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

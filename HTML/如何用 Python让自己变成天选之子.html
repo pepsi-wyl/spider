@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>请大家猜一猜下面这段代码的运行效果：</p> <p>你是不是以为这段代码运行以后，结果如下图所示？</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-21-21-50-47.png"/></p> <p>但实际上，我可以让输出结果根据我的意愿随意变动，例如像下面这个 gif ，所有输出结果都是我：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/fakerandom.gif"/></p> <p>你可以先不要往下看，放下手机，自己写一下代码，试一试 如何才能实现 gif 中的效果。</p> <p>下面来为大家解密。</p> <p>要实现这个效果，只需要两个知识点：</p> <p>首先来看第一个知识点。Python 的自带模块是可以被覆盖的，所以我们先来定义一个函数：</p> <p>接下来，使用这个函数覆盖<code>random.choice</code>：</p> <p>现在，无论给<code>random.choice</code>传入什么参数，它始终都会返回<code>kingname</code>，运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-21-21-58-38.png"/></p> <p>这个时候，你可能会说，那别人写代码的时候，又重新<code>import random</code>怎么办呢？<code>random.choice</code>不是又被改回去了吗？</p> <p>实际上并不会，因为Python 的包导入机制决定了，在每个运行时内部，每个包只有第一次导入的时候有效，所以只要还在当前运行时，那么后续的所有<code>import random</code>都是无效的。</p> <p>所以，即使重新导入了 random 模块，<code>random.choice</code>依然是你修改以后的代码。所以当你再次执行的时候，会发现返回的还是你想要的数据，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-21-22-02-38.png"/></p> <p>可能有人会说这样容易被识破啊，别人只要先随便写一些测试数据，运行一次<code>random.choice([123 456])</code>，发现返回的竟然是<code>kingname</code>，这不就露馅了吗？</p> <p>实际上完全不用担心，我们可以这样操作：</p> <p>要实现这样的功能，我们可以这样写代码：</p> <p>首先重启当前 Jupyter 内核，让 random 恢复成默认的，然后编码：</p> <p>这样替换以后，当有<code>kingname</code>在备选列表中时，<code>kingname</code>被有60%的概率被选中，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-21-22-13-06.png"/></p> <p>当<code>kingname</code>不在备选列表中时，一切正常，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-21-22-13-51.png"/></p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

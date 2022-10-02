@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在<a href="https://mp.weixin.qq.com/s/F7D9MjGypRj5J1EZVvPv0Q" rel="noopener" target="_blank">一日一技：实现函数调用结果的 LRU 缓存</a>一文中，我们提到Python自带的LRU缓存<code>lru_cache</code>。通过这个装饰器可以非常轻松地实现缓存。</p> <p>现在我们考虑下面这个应用场景：MongoDB中有100对id-用户名的对应关系，我从Redis中持续不断读取id，如果id能在MongoDB中找到对应关系，那么就把对应的用户名打印出来。如果找不到对应关系，那么就把这个id丢弃。</p> <p>为了防止频繁读取MongoDB，我在程序开始的时候直接读取这一百对对应关系，并存为字典：</p> <p>大家可以思考一下，上面这段代码有没有什么问题。然后继续看后面。</p> <p>如果我现在需要再增加100个id-用户名的对应关系怎么办？</p> <p>由于这个程序运行以后就一直阻塞式地读取Redis，不会停止，所以整个过程只会读取一次MongoDB。后面即使我向MongoDB中添加了新的对应关系，只要程序不重启，就无法读取到新的对应关系。</p> <p>肯定有同学想到，在while循环里面增加一个计时器，每x分钟就重新调用一下read_id_name_map()函数，更新对应关系。</p> <p>不过今天我们要讲的是另一个更有创意的办法，使用<code>lru_cache</code>来实现。</p> <p>对于这个例子来说，lru_cache的<code>maxsize</code>参数只需要设置为1，因为只需要存放1份对应关系即可。那么我们如何做到，比如每10分钟更新一次呢？我们知道，在使用lru_cache时，如果调用同一个函数，并且传入的参数相同，那么从第二次开始就会使用缓存。现在我们如何让时间在每10分钟内相同呢？</p> <p>我们来看现在的时间戳：1578399211.30042</p> <p>它除以600，值是<code>1578399211.30042 // 600 = 2630665.0</code>。然后我让这个时间戳加5分钟，也就是增加300秒，变成<code>1578399511.30042</code>。这个新的时间戳再除以600，发现结果还是<code>2630665.0</code>。但如果原来的时间戳增加超过10分钟，例如增加了601秒，我们再来看看效果<code>(1578399211.30042 + 601) // 600 = 2630666.0</code>，此时的结果也发生了变化。</p> <p>利用这个特点，修改一下我们的代码：</p> <p>现在，我们直接在while循环内部调用<code>read_id_name_map</code>，如果两次调用的时间间隔小于600秒，那么<code>time.time() // 600</code>的值是相同的，第二次直接使用缓存，也就不会查询MongoDB了。当时间超过10分钟后，时间戳除以600的值增加了，于是缓存没有命中，进入查询MongoDB的过程，更新id_name_map。实现了有过期时间的LRU缓存。</p> <p>补充：可能有同学注意到定义<code>read_id_name_map</code>函数的时候，参数我写的是下划线。这是Python 编码规范中建议的一种写法。当一个变量不会被使用，但又需要保留时，就可以用下划线表示。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

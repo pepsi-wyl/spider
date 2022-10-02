@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>我们经常遇到各种字典套字典的数据，例如：</p> <p>有没有什么简单的办法，把它<code>压扁</code>，变成：</p> <p>你肯定想到了使用递归来解决这个问题，那么你可以试一试，看看你的递归函数有多少行代码。</p> <p>今天，我们使用<code>yield</code>关键字来实现这个需求，在<code>不炫技</code>的情况下，只需要8行代码。在炫技的情况下，只需要3行代码。</p> <p>要快速地把这个嵌套字典压扁，我们需要从下网上来处理字段。例如对于<code>b-&gt;e-&gt;f-&gt;4</code>这条路径，我们首先把最里面的<code>{'f': 4}</code>转换为一个元组<code>('f' 4)</code>。然后，把这个元组向上抛出，于是得到了元组<code>('e' ('f' 4))</code>。我们把 <code>e</code>拼接到<code>f</code>的前面，变为：<code>('e_f' 4)</code>，继续往上抛出，得到<code>('b' ('e_f' 4))</code>。再把<code>b</code>拼接到<code>e_f</code>上面，得到<code>('b_e_f' 4)</code>。完成一条线路的组装。</p> <p>这个逻辑如果使用<code>yield</code>关键字来实现，就是：</p> <p>运行结果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-31-22-14-24.png"/></p> <p>通过使用 <code>yield</code>关键字，字典的<code>key</code>会像是在流水线上一样，一层一层从内向外进行组装，从而形成完整的路径。</p> <p>在下一篇文章中，我们继续使用<code>yield</code>关键字来解决字典与列表混合嵌套的情况。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

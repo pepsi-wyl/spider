@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>相信很多做爬虫的同学都会爬电商网站，每天爬一次，然后监控商品是否降价。如果你只监控一个商品，那么是否降价这非常容易判断，但如果你要找到这个网站里面所有降价的商品，那就非常麻烦了。</p> <p>如下图所示，是美国电商沃尔玛的全站商品数据：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220516193731.png"/></p> <p>每个商品每天都会爬一次，一共有61w+条数据。里面有N个商品降价了，现在需要把这些降价的商品找出来。</p> <p>商品有十几万个，如果你分别找到每个商品的ID，然后用ID再找到这个商品每一天的数据，最后看它是否降价，这个工作量非常大，速度也会非常慢。</p> <p>Pandas内部使用了SIMB技术来对并行计算进行优化，我们需要尽量在不使用for循环的情况下，完成这个任务。</p> <p>为了简单起见，我们假设降价就是指今天比昨天的价格低，不考虑先涨价再降价的情况。</p> <p>要解决这个问题，我们需要使用DataFrame的<code>pct_change()</code>方法。它就像是<code>reduce</code>一样，给出一系列数据，它会计算数据改变量的百分比——第二条相对于第一条数据的改变，第三条数据相对于第二条数据的改变，第四条数据相对于第三条数据的改变。</p> <p>首先我们使用<code>date</code>字段对数据进行排序，确保价格是按时间排列的。然后对商品的<code>id</code>进行分组，这样就能拿到每一个商品每天的价格了。然后对<code>price</code>字段使用<code>pct_change()</code>：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220516195027.png"/></p> <p>图中最右侧<code>pct</code>字段是NaN，是因为这是这些商品的第一条数据，所以始终是NaN.</p> <p>我们筛选出今天（2022-05-16），pct小于0的商品：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220516195318.png"/></p> <p>这些就是降价的商品了。我们可以随便筛选一个商品来检查一下：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/20220516195454.png"/></p> <p>使用<code>pct_change()</code>速度非常快，60w数据几乎秒出。比for循环快多了。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

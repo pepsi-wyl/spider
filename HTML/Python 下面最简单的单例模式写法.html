@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>二十几种设计模式中，单例模式是最简单最常用的一种。在其他语言里面实现单例模式要写不少代码，但是在 Python 里面，有一种非常简单的单例模式写法。</p> <p>为了演示这种简单的写法，我们首先创建一个文件，<code>DBUtil.py</code>文件，用来模拟数据库操作类。这个文件里面的代码如下：</p> <p>现在我们创建两个文件：<code>a.py</code>和<code>b.py</code>，用来模拟在一个工程里面的两个不同地方同时调用数据库操作类并初始化的过程。</p> <p><code>a.py</code>内容如下：</p> <p><code>b.py</code>的内容如下：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-12-22-52-47.png"/></p> <p>可以看到，<code>创建数据库连接</code>被打印了两次，说明<code>DBUtil</code>类被实例化了两次。对应到真实的项目中，就是创建了多个到数据库的链接。这样是很浪费资源的。</p> <p>当然，你可以在 <code>a.py</code>中初始化<code>DBUtil</code>，然后把这个对象作为参数传入<code>run</code>函数里面，再<code>run</code>函数里面调用这个对象的<code>read()</code>方法。</p> <p>但是在实际项目中，往往会出现很多层的调用，如果要把一个对象一层一层传下去，不仅让参数列表显得杂乱，还容易漏掉或者搞错顺序。</p> <p>所以，使用单例模式就能避免通过参数传递对象，但又不会创建多个数据库连接。</p> <p>网上关于单例模式的代码有很多。本文将会介绍最简单的一种，利用 Python 的<code>import</code>机制。在 Python 里面，一个模块只会被导入1次，如果多次使用<code>import xxx</code>导入同一个模块，后面的导入语句会被自动忽略。你用这个机制，我们就能很容易实现单例模式。</p> <p>修改<code>DBUtil.py</code>，在它的最下面加上一行代码：</p> <p>修改<code>a.py</code>:</p> <p>修改<code>b.py</code>:</p> <p>运行以后的效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-12-23-02-25.png"/></p> <p>可以看到，<code>创建数据库连接</code>只打印了1次，说明单例模式成功。</p> <p>这种单例模式非常简单，但是有一个弊端，就是无法实现懒加载。程序刚刚开始运行，<code>DBUtil</code>类就会被实例化，无法做到等到需要的时候才实例化。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

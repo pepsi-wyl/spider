@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>我们知道，Python 里面的生成器只能被消费一次，例如如下代码：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-04-23-13-54.png"/></p> <p>在 <code>say_hello</code>函数里面，生成器已经被完整遍历了一次，那么在<code>say_hi</code>里面，就什么数据都拿不到了。</p> <p>但如果我们用的是列表，就可以多次遍历，如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-04-23-15-26.png"/></p> <p>大家注意观察区别。</p> <p>那么有什么办法，能让生成器被多次完整迭代呢？这个时候就要使用<code>itertools.tee</code>这个函数了。它通过<code>dequeue</code>实现了让生成器多次消费的办法。</p> <p><code>itertools.tee</code>的使用方法如下：</p> <p><code>itertools.tee</code>的第一个参数是原始生成器，第二个参数是你希望让它返回多少个可以复用的生成器。</p> <p>例如：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-04-23-19-45.png"/></p> <p>但是，<code>itertools.tee</code>有两个缺陷：</p> <p>其一是如果原始生成器能循环非常多次，产生的数据量非常大，并且你在消费的时候，是先迭代第一个分裂后的生成器，完整迭代完以后再迭代第二个分裂后的生成器，那么这将会浪费大量内存。所以，应该让两个生成器能间隔着迭代，或者“同时”迭代。</p> <p>其二，多个生成器同时迭代也有问题，分裂出来的多个生成器不是线程安全的，在多线程里面同时运行会导致报错。</p> <p>在接下来的两篇文章中，我会讲到<code>itertools.tee</code>是如何做到让生成器多次迭代的，然后讲到如何让分裂以后的生成器线程安全。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

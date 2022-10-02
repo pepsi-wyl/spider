@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>任意给出一个正整数，例如<code>4523</code>，如何快速统计它的二进制值里面有几个<code>1</code>？</p> <p>我们知道，在 Python 里面，查看一个数字的二进制函数为：<code>bin</code>，例如：</p> <p>所以我们很快就能想到一个统计方案：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-24-21-29-12.png"/></p> <p>如果使用这个方法，由于4523的二进制值有13位，所以 for 循环需要执行13次才能完成统计。更一般的结论，一个正整数 <code>n</code>，它的二进制值有$log_2{n} + 1$位，所以这种解法的时间复杂度始终为<code>O(logn)</code>，那么我们有没有什么办法优化这个算法呢？</p> <p>这个时候，我们观察一个现象：</p> <p>给出一个二进制的值<code>1000110101011</code>与这个值减1的值<code>1000110101010</code>，他们做与运算，结果为：<code>1000110101010</code>。可以看到，最右侧的1变成了0.</p> <p>现在我们再对<code>1000110101010</code>与它减1的值做与运算：</p> <p>此时，最右侧的1又变成了0.</p> <p>我们可以证明，假设有一个二进制数 <code>n</code>与<code>n-1</code>做与运算，它的效果相当于把这个二进制数最右侧的1变成0.</p> <p>于是，给定一个正整数<code>x</code>，只需要统计移除多少位的最右侧的1以后，这个数字变成了0，就能知道它里面有多少个1.于是我们可以写出如下的代码：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-24-21-42-25.png"/></p> <p>使用这种算法，最坏情况下，只有在数字 n 对应的二进制全部都是1的情况下(3 7 15 31 63….)，会执行$log_2n+1$次循环。而一般情况下，如果只有1个1，那么只需要循环1次，如果有2个1，只需要循环2次。大大提高了运算效率。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

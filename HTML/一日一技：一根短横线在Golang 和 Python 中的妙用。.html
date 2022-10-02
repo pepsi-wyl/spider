@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>一根不起眼的短横线，在 Golang 和 Python 中，都能够让你不输出某些不想要的字符。</p> <p>我们在使用 Python 输出时间日期的时候，一般格式是这样的：<code>YYYY-mm-dd  :MM:SS</code>，例如：<code>2021-03-22 09:10:12</code>。可以看到<code>03</code>和<code>09</code>前面都有一个0。这样做的好处，是可以让日期时间保持相同的长度，于是就可以通过字符串的方式比较大小。</p> <p>但有时候，因为某些原因，你可能确实不想补0，你就想输出<code>2021-3-22 9:10:12</code>这种格式的时间。</p> <p>但我们知道，在 Python 里面把日期时间格式化输出，代码如下：</p> <p>在这个格式化符号里面，可以看到我们本身就使用的是一个字符，月份就是<code>%m</code>，难道还有另外一个符号用来表示不补0的日期？</p> <p>实际上，不补0并不需要另外一个符号来表示，我们只需要在<code>%</code>和<code>m</code>之间加上一根短横线就可以了：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-03-22-21-06-08.png"/></p> <p>在使用 Golang 的时候，我们有时候需要在结构体和 JSON 字符串之间互相转换。在转换的工程中，可能会发现有些字段是多余的。我们不想让 JSON中的某些字段转到结构体里面，或者不想让结构体里面的某些字段转到 JSON 中去。</p> <p>对于从 JSON 转到结构体，要忽略字段非常简单，例如有如下一个 JSON 字符串：</p> <p>在转成结构体的时候，我不想要<code>handsome</code>这个字段，于是可以这样写代码：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-03-22-20-44-56.png"/></p> <p>但问题是，如果现在给你一个结构体，但是转成 JSON 的时候不想要其中一个字段，应该怎么操作？可能有人会以为，在定义结果体的时候，不要加上<code>json:"xxx"</code>就可以了。但实际执行的效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-03-22-20-49-42.png"/></p> <p>Golang 会直接使用这个字段在结构体中的名字来转成 JSON。</p> <p>如果不想要这个字段，实际上有一个非常简单的办法，就是在定义结构体的时候，加上<code>json:"-"</code>，例如：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2021-03-22-20-52-43.png"/></p> <p>通过指定这个横线，就能忽略这个字段了。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

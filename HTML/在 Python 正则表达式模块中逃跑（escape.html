@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在编程语言中，有常见的符号被赋予了特殊的意义，例如小数点<code>.</code>，在正则表达式里面表示任意一个非换行符的字符；小于号<code>&lt;</code>在 html 中表示标签。</p> <p>但有时候，我们只想让这些符号表示它本来的意思，不想让它的特殊意义表露出来，应该怎么办？</p> <p>我们知道，在正则表达式中可以使用反斜杠来让一个特殊符号变成普通符号，例如<code>\.</code>表示普通的小数点，<code>\$</code>表示普通的美元符号。</p> <p>现在我有一个列表<code>keywords_list</code>，里面是100个字符串，我想判断是否有任意一个字符串在某个给定的句子中。如果用 for 循环一个一个去检查，效率非常低。于是可以考虑使用正则表达式：</p> <p>但假设 <code>keywords_list</code>列表中有如下的字符串：</p> <p>那么我们使用正则表达式就会导致报错，如下图所示。</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-12-02-22-11-20.png"/></p> <p>这是因为这些字符串里面存在特殊的符号，这些符号在正则表达式里面有特殊的意义，有使用的规范，不能随意使用。</p> <p>但是，<code>keywords_list</code>里面有各种各样的特殊符号，难道要一个一个取出来，逐一<code>x.replace('+' '\+').replace('.' '\.').replace('*' '\*')...</code>?</p> <p>当然不用，Python 的正则表达式模块已经帮你想好了解决办法，使用<code>re.escape</code>就能自动处理所有的特殊符号了！</p> <p>它的用法如下：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-12-02-22-16-08.png"/></p> <p>解决问题。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

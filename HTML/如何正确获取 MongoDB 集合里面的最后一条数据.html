@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在我们使用 Python 查询 MongoDB 的时候，一般会使用MongoDB 的集合（collection）对象的 <code>find()</code>方法或者<code>find_one()</code>方法：</p> <p>其中，<code>find()</code>方法返回的是一个游标对象，我们可以直接对这个对象进行迭代，从而按顺序获取每一条数据。</p> <p>这个游标对象还有一个<code>sort()</code>方法，可以对迭代返回的数据进行排序，例如想对数据按照<code>_id</code>倒序显示，那么可以把代码写为：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-19-22-14-59.png"/></p> <p>需要注意，对游标对象执行了<code>sort()</code>方法以后，返回的依然是游标对象。所以如果我们只想获取最后一条数据怎么办呢？有如下2种方法：</p> <p>或者我们可以使用第二种方式：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-19-22-16-07.png"/></p> <p>这是由于游标对象是一个可迭代对象，所以可以使用<code>next</code>函数获取它第一次迭代的值。</p> <p>我们平时使用<code>find_one()</code>时，返回的都是第一个满足条件的数据，那么有办法返回最后一个满足条件的数据呢？</p> <p>由于 <code>find_one()</code>返回的数据是<code>None</code>或者一个字典。他们都没有<code>sort()</code>方法，所以不能使用下面这种写法：</p> <p>正确的写法，是把<code>sort</code>作为参数写在<code>find_one()</code>方法里面：</p> <p>运行效果如下图所示：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-10-19-22-20-48.png"/></p> <p>作为参数的<code>sort</code>，它的值是一个列表，列表里面的每一个元素都是元组，元组的第一个值为需要被排序的字段名，第二个值为1或者-1，1表示正序，-1表示倒序。如果列表里面有多个元组，那么先按第一个元组对应的字段排序，第一次排序的结果里面，值相同的再按第二个元组对应的字段排序，以此类推。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

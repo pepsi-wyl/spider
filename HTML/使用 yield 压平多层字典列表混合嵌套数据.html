@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在上一篇文章里面，我们讲到了如何使用Python的<code>yield</code>关键字简化代码，压平多层嵌套字典的。</p> <p>那么如果我们的数据不仅仅有字典，还有列表，是一个字典列表多层嵌套的数据怎么办呢？例如：</p> <p>现在，请停下来，敲一敲代码，想想如何把处理列表的逻辑添加进去。</p> <p>首先，我们来看一下最终被压平以后的数据长什么样：</p> <p>对于<code>'n': ['a' 'b' 'c']</code>这种形式的数据，我们把它转换为： <code>{'n_0': 'a' 'n_1': 'b' 'n_2': 'c'}</code></p> <p>我们原来的核心代码是这样的：</p> <p>你的第一反应，是不是这样修改代码：</p> <p>如果你使用<code>return</code>和递归，你可能确实需要这样写。</p> <p>但如果你使用<code>yield</code>关键字，那么，你虽然也要修改代码，可是修改的地方却不是这里。我们要修改的地方在<code>for key value in x.items()</code>。</p> <p>因为<code>.items()</code>这个方法是字典的方法，列表没有这个方法。所以我们需要写一个通用的迭代生成器，支持字典和列表，所以我们增加一个函数：<code>iter_x</code>:</p> <p>现在，我们在原来的代码中调用这段个新的生成器函数：</p> <p>其中，<code>isinstance(value (dict list))</code>，相当于<code>isinstance(value dict) or isinstance(value list)</code>。</p> <p>我们来看一下运行效果：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-11-02-22-25-08.png"/></p> <p>掌握<code>yield</code>关键字，你的编程思路和想问题的方式会发生一个重大的转变。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在写 Python 代码的时候，大家可能会在不知不觉中使用一些设计范式。我们来看两个例子。</p> <p>假设有一个类<code>People</code>：</p> <p>现在我们有另一个类<code>ClassRoom</code>:</p> <p>我们在<code>ClassRoom</code>的构造函数中，初始化了一个 student 对象，然后在<code>start_class</code>方法中，调用了这个对象的<code>study</code>方法。</p> <p>这个过程看起来似乎没有什么问题，相信很多读者也是这样写代码的。</p> <p>现在，我们再增加两个类：</p> <p>新增加的两个类<code>Restaurant</code>和<code>Ballroom</code>的构造函数里面都通过<code>People</code>类初始化了对象。然后在调用这个对象的方法。</p> <p>这样写看起来没有问题，能正常工作，代码也不丑。</p> <p>现在，<code>People</code>类需要修改一下它的构造函数：</p> <p>在初始化<code>People</code>类时，需要传入一个<code>address</code>参数。现在怎么办？</p> <p>于是<code>ClassRoom</code>、<code>Restaurant</code>、<code>Ballroom</code>这三个类的构造函数都要随之做修改，全都得加上这个<code>address</code>参数。</p> <p>这就叫做<code>牵一发而动全身</code>。</p> <p>很多人为了避免做这样的修改，会把新增加的这个参数<code>address</code>改成默认参数：</p> <p>这样看起来，另外三个类的代码就不需要做任何修改了。</p> <p>这就是为什么你们公司的代码里面，很多函数会带上大量奇奇怪怪的默认参数的原因。</p> <p>在编程范式中，有一个术语叫做<code>依赖注入</code>，就是为了解决这个问题的。</p> <p>而且做起来简单到你觉得这是在逗你，把<code>People</code>初始化以后的对象传到其他类的构造函数中即可：</p> <p>虽然叫做编程范式，但也不是说应该始终使用依赖注入。例如你的代码会层层调用，难道从第一层把对象一层一层传到最里面去？所以应该根据实际情况来进行选择。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

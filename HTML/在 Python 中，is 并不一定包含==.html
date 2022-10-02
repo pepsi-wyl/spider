@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>在我们日常使用 Python 时，大家可能有这样一种认识：</p> <p>这是因为 <code>==</code> 只比较值，而 <code>is</code> 同时比较值和内存地址。简单来说:你左手边有一个人，右手边有一个人，两个人长得一模一样，那么<code>左手边的人==右手边的人</code>；你左手边有一个人，一分钟以后这个人走到了你的右手边，那么<code>刚才左手边的人 is 现在右手边的人</code></p> <p>但凡事总有意外，情况下面的代码：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-09-26-22-17-41.png"/></p> <p>为什么会出现这种情况？<code>a is b</code>为 True，<code>a == b</code>却为 <code>False</code>。</p> <p>你可以先停在这里，猜一下a 和 b 里面的值到底是什么东西。</p> <p>现在来揭开答案，我们来网上看两行：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-09-26-22-23-43.png"/></p> <p>a 和 b 的值为<code>♂</code>，它的意思是<code>Not a Number</code>，非数。</p> <p><code>♂</code>与任何数，包括它自己比较，结果都是 False，这是<a href="https://zh.wikipedia.org/wiki/IEEE_754#%E7%89%B9%E6%AE%8A%E5%80%BC" rel="noopener" target="_blank">IEEE-754</a>规定的：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-09-26-22-27-06.png"/></p> <p>Python 在实现这个数据的时候，根据 IEEE-754的要求，也做了限制：</p> <p><img alt="" src="https://kingname-1257411235.cos.ap-chengdu.myqcloud.com/2019-09-26-22-30-08.png"/></p> <p>相关的文档地址详见 Python 的 <a href="https://docs.python.org/3/library/math.html" rel="noopener" target="_blank">math 库</a></p> <p>所以，这里 a == b 为 False，是一种特殊情况。并不是 Python 出现了错误。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    

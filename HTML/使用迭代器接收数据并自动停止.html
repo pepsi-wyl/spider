@@ -1,0 +1,11 @@
+ 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+    <p class="site-subtitle">给时光以生命。</p> <p>假设有一个 Redis 集合，里面有 N 条数据，你不停从里面<code>lpop</code>数据，直到某一条数据的值为<code>'Stop'</code>字符串为止(已知里面必有一条数据为<code>'Stop'</code>字符串，但其位置不知道)。</p> <p>这个需求看起来很简单，于是你立刻就着手写出了代码：</p> <p>现在问题来了，如果 Redis 里面的数据非常多，已经超过了你的内存容量怎么办？数据全部放在<code>datas</code>列表里面再返回显然是不可取的做法。</p> <p>好在，这些数据读取出来以后，会传给一个<code>parse</code>函数，并且这个函数是一条一条处理数据的，它处理完成以后，就可以把数据丢弃了。</p> <p>于是你可能会这样改写代码：</p> <p>但我们知道，在编码规范和软件工程里面，建议一个函数，它应该只做一件事情，而现在<code>read_data()</code>函数却做了两件事情：1. 从 Redis 里面读取数据。2.调用<code>parse()</code>函数。</p> <p>那么我们有没有办法把他们区分开来呢？如何让<code>read_data</code>能返回数据，但是又不会把内存撑爆呢？</p> <p>这个时候，我们就可以使用生成器来解决问题：</p> <p>在这个代码里面，<code>read_data</code>变成了生成器函数，它返回一个生成器，对生成器进行迭代的时候，每次返回一条数据，这一条数据立即传给<code>parse()</code>函数。整个过程源源不断，生生不息。不需要额外创建一个列表用来存放数据。</p> <p>那么代码还能不能继续简化呢？此时我们就可以使用<code>iter</code>关键字了。</p> <p>使用了<code>iter</code>关键字的效果如下图所示：</p> <p>其中，<code>read_data</code>现在每运行一次只会返回列表最左边的数据。但是当我们直接使用<code>iter(read_data 'Stop')</code>的时候，就会得到一个<code>迭代器</code>。对这个迭代器进行迭代，相当于在<code>While True</code>里面不停运行<code>read_data</code>函数，直到某一次迭代的时候，<code>read_data</code>函数返回了<code>Stop</code>，就停止。</p> <p>当然如果你想炫技的话，还可以进一步简化：</p> <p>当然，我是不推荐这样写的。</p> <p class="site-author-name" itemprop="name">谢乾坤 | Kingname</p> <p class="site-description motion-element" itemprop="description">高级数据挖掘工程师，《Python 爬虫开发 从入门到实战》、《左手 MongoDB 右手 Redis——从入门到商业实战》作者。 微软最有价值专家 MVP，Python Scrapy MongoDB Redis Pandas Golang。</p>
+    </body>
+    </html>
+    
